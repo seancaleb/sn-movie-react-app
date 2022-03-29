@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes as MyRoutes } from "react-router
 import { Footer, Header, MovieCategory, ScrollToTop } from "../components";
 import Movie from "../components/movie/Movie";
 import { useGetMoviesQuery } from "../features/api/moviesSlice";
-import Home from "../pages/home";
+import Home from "../pages/Home";
 
 const Routes = () => {
   return (
