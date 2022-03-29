@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.page-li {
+  max-width: 50px;
+  min-height: 50px;
+  width: 100%;
+  background-color: #202020;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.page-li-a {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+
+.break {
+  color: white;
+  align-self: flex-end;
+}
+
+.page-active {
+  color: white;
+  background: linear-gradient(
+    to right,
+    rgba(0, 152, 155, 0.25),
+    rgba(0, 94, 120, 0.25)
+  ) !important;
+  border: 2px solid #005e78;
+}

@@ -1,0 +1,65 @@
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("./fonts//NeueHaasDisplayLight.ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("./fonts/NeueHaasDisplayRoman.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("./fonts/NeueHaasDisplayMedium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("./fonts/NeueHaasDisplayBold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #181818;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 50px;
+  border: 4px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  border-color: #181818;
+}
+
+::-moz-selection {
+  color: #121212;
+  background: #aaa;
+}
+
+::selection {
+  color: #121212;
+  background: #aaa;
+}
+
+ul {
+  list-style-type: none;
+}
