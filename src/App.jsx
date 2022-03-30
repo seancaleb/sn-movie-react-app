@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from "react";
-// import { useDispatch } from "react-redux";
+import { Box, useBoolean } from "@chakra-ui/react";
+import React, { useEffect, useMemo, useState } from "react";
 import Routes from "./routes/Routes";
+// import { useDispatch } from "react-redux";
 
 /////////////////////////////////////////////////////////////////
 // --------------- THIS IS JUST FOR DEMO PURPOSES ---------------
@@ -25,10 +26,29 @@ const App = () => {
   //   dispatch(fetchMovieGenres());
   // }, []);
 
+  const [isMounted, setIsMounted] = useBoolean();
+
+  useEffect(() => {
+    const handler = () => setIsMounted.on();
+
+    if (document.readyState === "complete") {
+      handler();
+    } else {
+      window.addEventListener("load", handler);
+      return () => window.removeEventListener("load", handler);
+    }
+  }, []);
+
   return (
-    <TogglerProvider>
-      <Routes />
-    </TogglerProvider>
+    <>
+      {isMounted ? (
+        <TogglerProvider>
+          <Routes />
+        </TogglerProvider>
+      ) : (
+        <Box minH="100vh" bg="brand.dark.primary" w="100%" />
+      )}
+    </>
   );
 };
 
