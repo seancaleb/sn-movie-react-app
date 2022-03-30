@@ -1,50 +1,73 @@
-import { GridItem, Container, Box, Flex, Heading, Text, Image, useMediaQuery } from "@chakra-ui/react";
+import { GridItem, Container, Box, Flex, Heading, Text, Image, useMediaQuery, useBoolean } from "@chakra-ui/react";
 import { Detail, VoteCount } from "../";
-import MovieCasts from "./MovieCasts";
+import { loadImage } from "../../utils";
+import { motion } from "framer-motion";
 
-const DetailsDataView = ({ data }) => {
+const container = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+};
+
+const MotionContainer = motion(Container);
+
+const DetailsDataView = ({ data, casts }) => {
   const [isLessThanEqual767] = useMediaQuery("(max-width: 767px)");
+  const [isLoaded, setIsLoaded] = useBoolean();
 
   const bgImage = data.backdrop_path ? `${bgGradient} url(${baseImgUrlOriginal}/${data.backdrop_path})` : placeholderBackdrop;
   const srcImage = data.poster_path ? `${baseImgUrlDefault}/${data.poster_path}` : placeholderPoster;
   const countries = data.production_countries[0] ? data.production_countries[0].name : null;
 
+  if (data.backdrop_path) {
+    loadImage(`${baseImgUrlOriginal}/${data.backdrop_path}`).then(() => {
+      document.querySelector(".bg-image").style.backgroundImage = bgImage;
+      setIsLoaded.on();
+    });
+  } else if (!data.backdrop_path) {
+    loadImage(placeholderBackdrop).then(() => {
+      document.querySelector(".bg-image").style.backgroundImage = placeholderBackdrop;
+      setIsLoaded.on();
+    });
+  }
+
   return (
-    <GridItem sx={{ backgroundImage: bgImage }} {...bgContainerProps}>
-      <Container {...containerProps}>
-        <Box {...dataWrapperProps}>
-          <Flex {...flexDataContainerProps}>
-            {!isLessThanEqual767 && <Image src={srcImage} {...imageProps} />}
-            <Flex flexDir="column" gap="20px" flex={{ md: 1 }}>
-              <Heading color="white">{data.original_title}</Heading>
-              <Flex gap="20px">
-                <VoteCount vote_average={data.vote_average} />
-                <Text {...textProps}>{data.status}</Text>
-                <Text {...textProps}>{data.runtime} minutes</Text>
-              </Flex>
-              <Flex flexDir="column" gap="5px">
-                <Heading {...headingSubProps}>Overview</Heading>
-                <Text {...textProps} color="whiteAlpha.800">
-                  {data.overview || "Not specified"}
-                </Text>
-              </Flex>
-              <Flex flexDir={{ base: "column", sm: "row" }} gap="20px">
-                {/* DETAIL FIRST COLUMN  */}
-                <Flex {...flexDetailColProps}>
-                  <Detail title="Release date" value={data.release_date || "Not specified"} />
-                  <Detail title="Movie duration" value={`${data.runtime} minutes`} />
-                  <Detail title="Genres" value={data.genres} />
+    <GridItem className="bg-image" {...bgContainerProps}>
+      {isLoaded && (
+        <MotionContainer {...containerProps} variants={container} initial="hidden" animate="visible">
+          <Box {...dataWrapperProps}>
+            <Flex {...flexDataContainerProps}>
+              {!isLessThanEqual767 && <Image src={srcImage} {...imageProps} />}
+              <Flex flexDir="column" gap="20px" flex={{ md: 1 }}>
+                <Heading color="white">{data.original_title}</Heading>
+                <Flex gap="20px">
+                  <VoteCount vote_average={data.vote_average} />
+                  <Text {...textProps}>{data.status}</Text>
+                  <Text {...textProps}>{data.runtime} minutes</Text>
                 </Flex>
-                {/* DETAIL SECOND COLUMN  */}
-                <Flex {...flexDetailColProps}>
-                  <Detail title="Country" value={countries} />
-                  <Detail title="Casts" component={<MovieCasts movieId={data.id} />} />
+                <Flex flexDir="column" gap="5px">
+                  <Heading {...headingSubProps}>Overview</Heading>
+                  <Text {...textProps} color="whiteAlpha.800">
+                    {data.overview || "Not specified"}
+                  </Text>
+                </Flex>
+                <Flex flexDir={{ base: "column", sm: "row" }} gap="20px">
+                  {/* DETAIL FIRST COLUMN  */}
+                  <Flex {...flexDetailColProps}>
+                    <Detail title="Release date" value={data.release_date || "Not specified"} />
+                    <Detail title="Movie duration" value={`${data.runtime} minutes`} />
+                    <Detail title="Genres" value={data.genres} />
+                  </Flex>
+                  {/* DETAIL SECOND COLUMN  */}
+                  <Flex {...flexDetailColProps}>
+                    <Detail title="Country" value={countries} />
+                    <Detail title="Casts" value={casts} />
+                  </Flex>
                 </Flex>
               </Flex>
             </Flex>
-          </Flex>
-        </Box>
-      </Container>
+          </Box>
+        </MotionContainer>
+      )}
     </GridItem>
   );
 };
