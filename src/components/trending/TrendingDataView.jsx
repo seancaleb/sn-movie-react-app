@@ -152,6 +152,7 @@ const leftColProps = {
     lg: 8,
   },
   minH: "480px",
+  w: "100%",
 };
 
 const rightColProps = {
