@@ -1,45 +1,69 @@
+import { useEffect, useState } from "react";
 import { GridItem, Link, Flex, Text, Image, useMediaQuery } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import { Link as RouteLink } from "react-router-dom";
 import { MovieCard } from "../";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade } from "swiper";
-import "swiper/css/effect-fade";
 import "swiper/css";
+import { loadImage } from "../../utils";
+import Loader from "../Loader";
 
 const TrendingDataView = ({ data }) => {
   const [isLessThanEqual767] = useMediaQuery("(max-width: 767px)");
+  const [movies, setMovies] = useState([]);
+  let renderedMovies;
+
+  if (movies.length === 0) {
+    renderedMovies = (
+      <Flex alignItems="center" justifyContent="center" h="100%">
+        <Loader />
+      </Flex>
+    );
+  } else {
+    renderedMovies = <Swiper {...swiperProps}>{movies.map((component) => component)}</Swiper>;
+  }
+
+  useEffect(() => {
+    const initialLoadImages = async () => {
+      const promises = data.map(async (movie) => {
+        const imgSrc = `${baseImgUrlOriginal}/${movie.backdrop_path}`;
+
+        const loadedImage = await loadImage(imgSrc).then(() => imgSrc);
+
+        return (
+          <SwiperSlide key={movie.id}>
+            <Link as={RouteLink} to={`movie/${movie.id}`}>
+              <Flex {...bgCoverProps} sx={{ backgroundImage: `${bgGradient} url(${loadedImage})` }}>
+                <Flex {...contentContainerProps}>
+                  {!isLessThanEqual767 && <Image src={`${baseImgUrlDefault}/${movie.poster_path}`} {...imageProps} />}
+                  <Flex {...dataWrapperProps}>
+                    <Text {...titleProps}>{movie.original_title}</Text>
+                    <Flex {...voteWrapperProps}>
+                      <Flex alignItems="center">
+                        <StarIcon {...starIconProps} />
+                      </Flex>
+                      <Text {...voteCountProps}>{movie.vote_average}</Text>
+                    </Flex>
+                    <Text {...textProps}>{movie.overview}</Text>
+                  </Flex>
+                </Flex>
+              </Flex>
+            </Link>
+          </SwiperSlide>
+        );
+      });
+
+      const resolvedMovies = await Promise.all(promises);
+      setMovies((prevMovies) => [...prevMovies, ...resolvedMovies]);
+    };
+
+    initialLoadImages();
+  }, []);
 
   return (
     <>
-      <GridItem {...leftColProps}>
-        <Swiper {...swiperProps}>
-          {data.map((movie) => {
-            return (
-              <SwiperSlide key={movie.id}>
-                <Link as={RouteLink} to={`movie/${movie.id}`}>
-                  <Flex {...bgCoverProps} sx={{ backgroundImage: `${bgGradient} url(${baseImgUrlOriginal}/${movie.backdrop_path})` }}>
-                    <Flex {...contentContainerProps}>
-                      {!isLessThanEqual767 && <Image src={`${baseImgUrlDefault}/${movie.poster_path}`} {...imageProps} />}
-                      <Flex {...dataWrapperProps}>
-                        <Text {...titleProps}>{movie.original_title}</Text>
-                        <Flex {...voteWrapperProps}>
-                          <Flex alignItems="center">
-                            <StarIcon {...starIconProps} />
-                          </Flex>
-                          <Text {...voteCountProps}>{movie.vote_average}</Text>
-                        </Flex>
-                        <Text {...textProps}>{movie.overview}</Text>
-                      </Flex>
-                    </Flex>
-                  </Flex>
-                </Link>
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      </GridItem>
+      <GridItem {...leftColProps}>{renderedMovies}</GridItem>
 
       <GridItem {...rightColProps}>
         {data.slice(0, 3).map((movie) => {
@@ -120,13 +144,6 @@ const voteWrapperProps = {
 
 const swiperProps = {
   loop: true,
-  autoplay: {
-    delay: 3000,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-  },
-  effect: "fade",
-  modules: [Autoplay, EffectFade],
 };
 
 const leftColProps = {
@@ -134,6 +151,7 @@ const leftColProps = {
     base: 12,
     lg: 8,
   },
+  minH: "480px",
 };
 
 const rightColProps = {
