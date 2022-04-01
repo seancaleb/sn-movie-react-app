@@ -25,7 +25,7 @@ const MoviesDataView = ({ data, isFetching = false }) => {
     };
 
     !isFetching && initialLoadImages();
-  }, []);
+  }, [data]);
 
   return (
     <Grid {...gridProps}>
