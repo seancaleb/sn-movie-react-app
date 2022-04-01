@@ -1,34 +1,53 @@
 import { Link, Flex, Grid, GridItem, Image, Skeleton, Text } from "@chakra-ui/react";
 import { nanoid } from "@reduxjs/toolkit";
+import { useEffect, useState } from "react";
 import { Link as RouteLink } from "react-router-dom";
+import { loadImage } from "../../utils";
 import VoteCount from "../VoteCount";
 
 const placeholder = "https://via.placeholder.com/250/11111?text=Poster+Unavailable";
 
-const MoviesDataView = ({ data: movies, isFetching = false }) => {
-  return (
-    <Grid {...gridProps}>
-      {movies.map((movie) => {
+const MoviesDataView = ({ data, isFetching = false }) => {
+  const [movies, setMovies] = useState(data);
+
+  useEffect(() => {
+    const initialLoadImages = async () => {
+      const promises = data.map(async (movie) => {
         const posterSrc = `${import.meta.env.VITE_TMDB_IMAGE_BASE_URL}/${movie.poster_path}`;
         const src = movie.poster_path ? posterSrc : placeholder;
 
-        return (
-          <GridItem key={movie.id || nanoid()} {...gridItemProps}>
-            <Link as={RouteLink} to={`/movie/${movie.id}`}>
-              <Skeleton {...skeletonProps} isLoaded={!isFetching}>
-                <Image src={src} {...imageProps} />
-                <Flex {...dataWrapperProps}>
-                  <Flex gap="10px">
-                    <VoteCount vote_average={movie.vote_average} />
-                    <Text {...dateTextProps}>{movie.release_date || "Not Specified"}</Text>
+        const loadedImage = await loadImage(src).then(() => src);
+        return { ...movie, loadedSrc: loadedImage };
+      });
+
+      const resolvedMovies = await Promise.all(promises);
+      setMovies(resolvedMovies);
+    };
+
+    !isFetching && initialLoadImages();
+  }, []);
+
+  return (
+    <Grid {...gridProps}>
+      {movies &&
+        movies.map((movie) => {
+          return (
+            <GridItem key={movie.id || nanoid()} {...gridItemProps}>
+              <Link as={RouteLink} to={`/movie/${movie.id}`}>
+                <Skeleton {...skeletonProps} isLoaded={!isFetching && movie.loadedSrc}>
+                  <Image src={movie.loadedSrc} {...imageProps} />
+                  <Flex {...dataWrapperProps}>
+                    <Flex gap="10px">
+                      <VoteCount vote_average={movie.vote_average} />
+                      <Text {...dateTextProps}>{movie.release_date || "Not Specified"}</Text>
+                    </Flex>
+                    <Text {...textProps}>{movie.original_title}</Text>
                   </Flex>
-                  <Text {...textProps}>{movie.original_title}</Text>
-                </Flex>
-              </Skeleton>
-            </Link>
-          </GridItem>
-        );
-      })}
+                </Skeleton>
+              </Link>
+            </GridItem>
+          );
+        })}
     </Grid>
   );
 };
