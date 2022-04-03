@@ -6,8 +6,15 @@ import MoviesFallback from "./MoviesFallback";
 const RenderMovies = ({ data, error, isFetching, isSuccess, isError, limit }) => {
   if (isFetching) return <MoviesFallback isFetching={isFetching} limit={limit} />;
   else if (isSuccess)
-    return data.results.length !== 0 ? <MoviesDataView data={data.results} /> : <Text color="whiteAlpha.600">None specified yet.</Text>;
-  else if (isError) throw error;
+    if (data.results) {
+      return data.results.length !== 0 ? (
+        <MoviesDataView data={data.results} />
+      ) : (
+        <Text color="whiteAlpha.600">None specified yet.</Text>
+      );
+    } else if (data.cast) {
+      return <MoviesDataView data={data.cast} />;
+    } else if (isError) throw error;
 };
 
 export default React.memo(RenderMovies);
