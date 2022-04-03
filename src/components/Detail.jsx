@@ -1,5 +1,6 @@
-import { Text } from "@chakra-ui/react";
+import { Link, Text } from "@chakra-ui/react";
 import { nanoid } from "@reduxjs/toolkit";
+import { Link as RouteLink } from "react-router-dom";
 
 const Detail = ({ title, value }) => {
   let renderedValue;
@@ -10,10 +11,18 @@ const Detail = ({ title, value }) => {
     if (title === "Casts") {
       renderedValue = value.map((item, index) => {
         return (
-          <Text key={item.id} {...castsProps}>
-            {item.name}
-            {index === value.length - 1 ? "" : ", "}
-          </Text>
+          <Link
+            key={item.id}
+            as={RouteLink}
+            to={`/cast/${item.id}`}
+            _focus={{ boxShadow: "none" }}
+            _hover={{ textDecor: "none" }}
+          >
+            <Text {...castsProps}>
+              {item.name}
+              {index === value.length - 1 ? "" : ", "}
+            </Text>
+          </Link>
         );
       });
     } else {
