@@ -5,7 +5,7 @@ import { Link as RouteLink } from "react-router-dom";
 import { loadImage } from "../../utils";
 import VoteCount from "../VoteCount";
 
-const placeholder = "https://via.placeholder.com/250/11111?text=Poster+Unavailable";
+const placeholder = "https://via.placeholder.com/250/000?text=Poster+Unavailable";
 
 const MoviesDataView = ({ data, isFetching = false }) => {
   const [movies, setMovies] = useState(data);
@@ -25,7 +25,7 @@ const MoviesDataView = ({ data, isFetching = false }) => {
     };
 
     !isFetching && initialLoadImages();
-  }, [data]);
+  }, [data, isFetching]);
 
   return (
     <Grid {...gridProps}>

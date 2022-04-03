@@ -1,4 +1,14 @@
-import { GridItem, Container, Box, Flex, Heading, Text, Image, useMediaQuery, useBoolean } from "@chakra-ui/react";
+import {
+  GridItem,
+  Container,
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Image,
+  useMediaQuery,
+  useBoolean,
+} from "@chakra-ui/react";
 import { Detail, VoteCount } from "../";
 import { loadImage } from "../../utils";
 import { motion } from "framer-motion";
@@ -14,8 +24,12 @@ const DetailsDataView = ({ data, casts }) => {
   const [isLessThanEqual767] = useMediaQuery("(max-width: 767px)");
   const [isLoaded, setIsLoaded] = useBoolean();
 
-  const bgImage = data.backdrop_path ? `${bgGradient} url(${baseImgUrlOriginal}/${data.backdrop_path})` : placeholderBackdrop;
-  const srcImage = data.poster_path ? `${baseImgUrlDefault}/${data.poster_path}` : placeholderPoster;
+  const bgImage = data.backdrop_path
+    ? `${bgGradient} url(${baseImgUrlOriginal}/${data.backdrop_path})`
+    : placeholderBackdrop;
+  const srcImage = data.poster_path
+    ? `${baseImgUrlDefault}/${data.poster_path}`
+    : placeholderPoster;
   const countries = data.production_countries[0] ? data.production_countries[0].name : null;
 
   if (data.backdrop_path) {
@@ -33,7 +47,12 @@ const DetailsDataView = ({ data, casts }) => {
   return (
     <GridItem className="bg-image" {...bgContainerProps}>
       {isLoaded && (
-        <MotionContainer {...containerProps} variants={container} initial="hidden" animate="visible">
+        <MotionContainer
+          {...containerProps}
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
           <Box {...dataWrapperProps}>
             <Flex {...flexDataContainerProps}>
               {!isLessThanEqual767 && <Image src={srcImage} {...imageProps} />}
@@ -78,8 +97,8 @@ const bgGradient =
   "linear-gradient(rgba(24,24,24,1) 0%, rgba(24,24,24,1) 2%, rgba(24,24,24,.75) 25%,   rgba(24, 24, 24, 1) 98%, rgba(24, 24, 24, 1) 100%),";
 const baseImgUrlOriginal = ` ${import.meta.env.VITE_TMDB_IMAGE_BASE_URL_ORIGINAL}`;
 const baseImgUrlDefault = ` ${import.meta.env.VITE_TMDB_IMAGE_BASE_URL}`;
-const placeholderBackdrop = "https://via.placeholder.com/400/111/111?text=Poster+Unavailable";
-const placeholderPoster = "https://via.placeholder.com/400/111/fff?text=Poster+Unavailable";
+const placeholderBackdrop = "https://via.placeholder.com/400/000/000?text=Poster+Unavailable";
+const placeholderPoster = "https://via.placeholder.com/400/000/fff?text=Poster+Unavailable";
 
 const bgContainerProps = {
   colSpan: 12,

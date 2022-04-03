@@ -11,3 +11,4 @@ export { default as ErrorFallback } from "./ErrorFallback";
 export { default as Loader } from "./Loader";
 export { default as Detail } from "./Detail";
 export { default as MovieCategory } from "./MovieCategory";
+export { default as ImdbIcon } from "./ImdbIcon";
