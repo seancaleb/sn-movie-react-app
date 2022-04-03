@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { format } from "date-fns";
 
 const baseUrl = `${import.meta.env.VITE_TMDB_API_BASE_URL}`;
 const key = `${import.meta.env.VITE_TMDB_API_KEY}`;
@@ -115,8 +116,70 @@ export const moviesApi = createApi({
         } else return responseObj;
       },
     }),
+    getCastDetails: builder.query({
+      query: ({ castId }) => `person/${castId}?api_key=${key}`,
+      transformResponse: (response, meta, arg) => {
+        let responseObj = { ...response };
+
+        const { deathday, birthday } = responseObj;
+
+        const year = new Date().getFullYear();
+        const deathYear = new Date(deathday).getFullYear();
+        const birthYear = new Date(birthday).getFullYear();
+
+        const age = deathday ? deathYear - birthYear : year - birthYear;
+
+        return {
+          name: responseObj.name,
+          bio: responseObj.biography,
+          birthday: format(new Date(birthday), "MMMM d, y"),
+          birthplace: responseObj.place_of_birth,
+          img: responseObj.profile_path,
+          imdb_id: responseObj.imdb_id,
+          age,
+        };
+      },
+    }),
+    getCastMovieCredits: builder.query({
+      query: ({ castId }) => `person/${castId}/movie_credits?api_key=${key}`,
+      transformResponse: (response, meta, arg) => {
+        let responseObj = { ...response };
+
+        let { cast } = responseObj;
+
+        cast = cast
+          .map((movie) => {
+            return {
+              id: movie.id,
+              original_title: movie.original_title,
+              poster_path: movie.poster_path,
+              vote_average: movie.vote_average,
+              release_date: new Date(movie.release_date).getFullYear(),
+            };
+          })
+          .sort((a, b) => {
+            // return b.release_date - a.release_date;
+            // RETURN ONLY THOSE WITH POSTERS
+            return a.poster_path && b.poster_path ? b.release_date - a.release_date : null;
+          });
+
+        if (cast.length >= 10)
+          return {
+            ...responseObj,
+            cast: cast.slice(0, 10),
+          };
+        else return { ...responseObj, cast };
+      },
+    }),
   }),
 });
 
-export const { useGetTrendingMoviesQuery, useGetMoviesQuery, useGetMovieDetailsQuery, useGetMovieCastsQuery, useGetMoviesBaseFromMovieQuery } =
-  moviesApi;
+export const {
+  useGetTrendingMoviesQuery,
+  useGetMoviesQuery,
+  useGetMovieDetailsQuery,
+  useGetMovieCastsQuery,
+  useGetMoviesBaseFromMovieQuery,
+  useGetCastDetailsQuery,
+  useGetCastMovieCreditsQuery,
+} = moviesApi;
