@@ -7,7 +7,7 @@ import MoviesPagination from "./MoviesPagination";
 import { TogglerContext } from "../../App";
 import { useSearchParams } from "react-router-dom";
 
-const MoviesList = ({ title, category, limit, pagination = false, fn, movieId }) => {
+const MoviesList = ({ title, category, limit, pagination = false, fn, movieId, castId }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(searchParams.get("page") ?? 1);
 
@@ -16,6 +16,7 @@ const MoviesList = ({ title, category, limit, pagination = false, fn, movieId })
     limit,
     movieId,
     page: searchParams.get("page"),
+    castId,
   });
 
   /////////////////////////////////////////////////////////////////
