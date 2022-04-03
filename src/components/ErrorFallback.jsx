@@ -6,7 +6,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
     <GridItem {...flexWrapperProps}>
       <WarningTwoIcon {...iconProps} />
       <Heading {...headingProps}>Something went wrong.</Heading>
-      <Text {...textProps}>{error.data.status_message}</Text>
+      {error.data && <Text {...textProps}>{error.data.status_message}</Text>}
     </GridItem>
   );
 };
