@@ -167,6 +167,9 @@ export const moviesApi = createApi({
         else return { results: cast };
       },
     }),
+    getPopularPeople: builder.query({
+      query: ({ page = 0 }) => `person/popular?page=${page}&api_key=${key}`,
+    }),
   }),
 });
 
@@ -178,4 +181,5 @@ export const {
   useGetMoviesBaseFromMovieQuery,
   useGetCastDetailsQuery,
   useGetCastMovieCreditsQuery,
+  useGetPopularPeopleQuery,
 } = moviesApi;
