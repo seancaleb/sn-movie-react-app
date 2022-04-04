@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes as MyRoutes } from "react-router-dom";
-import { Footer, Header, MovieCategory, ScrollToTop } from "../components";
+import { Footer, Header, BaseTemplate, ScrollToTop } from "../components";
 import Cast from "../components/cast/Cast";
 import Genre from "../components/genre/Genre";
 import Movie from "../components/movie/Movie";
@@ -20,7 +20,7 @@ const Routes = () => {
             exact
             path="/movie/popular"
             element={
-              <MovieCategory
+              <BaseTemplate
                 title="Popular Movies"
                 fnArgs={popularArgs}
                 pagination
@@ -35,7 +35,7 @@ const Routes = () => {
             exact
             path="/movie/top_rated"
             element={
-              <MovieCategory
+              <BaseTemplate
                 title="Top Rated Movies"
                 fnArgs={topratedArgs}
                 pagination
@@ -50,7 +50,7 @@ const Routes = () => {
             exact
             path="/movie/upcoming"
             element={
-              <MovieCategory
+              <BaseTemplate
                 title="Upcoming Movies"
                 fnArgs={upcomingArgs}
                 pagination
@@ -65,7 +65,7 @@ const Routes = () => {
             exact
             path="/person/popular"
             element={
-              <MovieCategory
+              <BaseTemplate
                 title="Popular Celebrities"
                 pagination
                 fn={useGetPopularPeopleQuery}

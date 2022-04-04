@@ -1,9 +1,9 @@
 import { Main, MainContainer, Section } from ".";
 import QueryList from "./QueryList";
 
-const MovieCategory = ({ title, fnArgs, pagination, fn, component }) => {
+const BaseTemplate = ({ title, fnArgs, pagination, fn, component }) => {
   return (
-    <Main pt={{ lg: "60px" }}>
+    <Main pt={{ base: "20px", lg: "60px" }}>
       <MainContainer>
         <Section>
           <QueryList {...{ title, fnArgs, pagination, fn, component }} />
@@ -13,4 +13,4 @@ const MovieCategory = ({ title, fnArgs, pagination, fn, component }) => {
   );
 };
 
-export default MovieCategory;
+export default BaseTemplate;

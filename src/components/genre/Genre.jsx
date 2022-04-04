@@ -11,8 +11,6 @@ const Genre = () => {
   const { genreId } = useParams();
   const [genres] = useSelector((state) => selectGenre(state, Number(genreId)));
 
-  console.log(genres.name);
-
   return (
     <Main pt={{ base: "20px", lg: "60px" }}>
       <MainContainer>

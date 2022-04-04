@@ -10,7 +10,7 @@ export { default as ScrollToTop } from "./ScrollToTop";
 export { default as ErrorFallback } from "./ErrorFallback";
 export { default as Loader } from "./Loader";
 export { default as Detail } from "./Detail";
-export { default as MovieCategory } from "./MovieCategory";
+export { default as BaseTemplate } from "./BaseTemplate";
 export { default as ImdbIcon } from "./ImdbIcon";
 export { default as Paginate } from "./Paginate";
 export { default as QueryList } from "./QueryList";
