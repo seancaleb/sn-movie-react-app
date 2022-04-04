@@ -163,12 +163,8 @@ export const moviesApi = createApi({
             return a.poster_path && b.poster_path ? b.release_date - a.release_date : null;
           });
 
-        if (cast.length >= 10)
-          return {
-            ...responseObj,
-            cast: cast.slice(0, 10),
-          };
-        else return { ...responseObj, cast };
+        if (cast.length >= 10) return { results: cast.slice(0, 10) };
+        else return { results: cast };
       },
     }),
   }),
