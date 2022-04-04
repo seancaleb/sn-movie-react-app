@@ -1,12 +1,12 @@
 import { Main, MainContainer, Section } from ".";
 import MoviesList from "./movies/MoviesList";
 
-const MovieCategory = ({ title, category, pagination, fn }) => {
+const MovieCategory = ({ title, fnArgs, pagination, fn }) => {
   return (
-    <Main pt={{ base: "20px", lg: "60px" }}>
+    <Main pt={{ lg: "60px" }}>
       <MainContainer>
         <Section>
-          <MoviesList {...{ title, category, pagination, fn }} />
+          <MoviesList {...{ title, fnArgs, pagination, fn }} />
         </Section>
       </MainContainer>
     </Main>

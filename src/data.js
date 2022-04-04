@@ -10,3 +10,15 @@ export const menuItems = [
   { title: "Top Rated", path: "/movie/top_rated" },
   { title: "Coming Soon", path: "/movie/upcoming" },
 ];
+
+export const popularArgs = {
+  category: "popular",
+};
+
+export const topratedArgs = {
+  category: "top_rated",
+};
+
+export const upcomingArgs = {
+  category: "upcoming",
+};

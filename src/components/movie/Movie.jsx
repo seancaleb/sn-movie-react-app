@@ -8,6 +8,16 @@ import MovieDetails from "./MovieDetails";
 const Movie = () => {
   const { movieId } = useParams();
 
+  const recommendationsArgs = {
+    category: "recommendations",
+    movieId,
+  };
+
+  const similarArgs = {
+    category: "similar",
+    movieId,
+  };
+
   return (
     <Main pt={0}>
       <Section>
@@ -15,10 +25,20 @@ const Movie = () => {
       </Section>
       <MainContainer>
         <Section>
-          <MoviesList title="Recommended" category="recommendations" movieId={movieId} fn={useGetMoviesBaseFromMovieQuery} limit={7} />
+          <MoviesList
+            title="Recommended"
+            fn={useGetMoviesBaseFromMovieQuery}
+            fnArgs={recommendationsArgs}
+            limit={7}
+          />
         </Section>
         <Section>
-          <MoviesList title="Similar" category="similar" movieId={movieId} fn={useGetMoviesBaseFromMovieQuery} limit={7} />
+          <MoviesList
+            title="Similar"
+            fn={useGetMoviesBaseFromMovieQuery}
+            fnArgs={similarArgs}
+            limit={7}
+          />
         </Section>
       </MainContainer>
     </Main>

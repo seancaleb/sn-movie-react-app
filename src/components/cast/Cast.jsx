@@ -16,7 +16,12 @@ const Cast = () => {
         </Section>
         <Section>
           <GridItem colSpan={12} maxW="1080px" m="auto" w="100%">
-            <MoviesList title="Other" castId={castId} fn={useGetCastMovieCreditsQuery} limit={10} />
+            <MoviesList
+              title="Other"
+              fnArgs={{ castId }}
+              fn={useGetCastMovieCreditsQuery}
+              limit={10}
+            />
           </GridItem>
         </Section>
       </MainContainer>

@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes as MyRoutes } from "react-router
 import { Footer, Header, MovieCategory, ScrollToTop } from "../components";
 import Cast from "../components/cast/Cast";
 import Movie from "../components/movie/Movie";
+import { popularArgs, topratedArgs, upcomingArgs } from "../data";
 import { useGetMoviesQuery } from "../features/api/moviesSlice";
 import Home from "../pages/Home";
 
@@ -16,7 +17,12 @@ const Routes = () => {
             exact
             path="/movie/popular"
             element={
-              <MovieCategory title="Popular" category="popular" pagination fn={useGetMoviesQuery} />
+              <MovieCategory
+                title="Popular"
+                fnArgs={popularArgs}
+                pagination
+                fn={useGetMoviesQuery}
+              />
             }
           />
           <Route
@@ -25,7 +31,7 @@ const Routes = () => {
             element={
               <MovieCategory
                 title="Top Rated"
-                category="top_rated"
+                fnArgs={topratedArgs}
                 pagination
                 fn={useGetMoviesQuery}
               />
@@ -37,7 +43,7 @@ const Routes = () => {
             element={
               <MovieCategory
                 title="Upcoming"
-                category="upcoming"
+                fnArgs={upcomingArgs}
                 pagination
                 fn={useGetMoviesQuery}
               />
