@@ -2,8 +2,10 @@ import { BrowserRouter, Navigate, Route, Routes as MyRoutes } from "react-router
 import { Footer, Header, MovieCategory, ScrollToTop } from "../components";
 import Cast from "../components/cast/Cast";
 import Movie from "../components/movie/Movie";
+import MoviesDataView from "../components/movies/MoviesDataView";
+import PeopleDataView from "../components/people/PeopleDataView";
 import { popularArgs, topratedArgs, upcomingArgs } from "../data";
-import { useGetMoviesQuery } from "../features/api/moviesSlice";
+import { useGetMoviesQuery, useGetPopularPeopleQuery } from "../features/api/moviesSlice";
 import Home from "../pages/Home";
 
 const Routes = () => {
@@ -18,10 +20,13 @@ const Routes = () => {
             path="/movie/popular"
             element={
               <MovieCategory
-                title="Popular"
+                title="Popular Movies"
                 fnArgs={popularArgs}
                 pagination
                 fn={useGetMoviesQuery}
+                component={(data, isFetching) => (
+                  <MoviesDataView data={data.results} isFetching={isFetching} />
+                )}
               />
             }
           />
@@ -30,10 +35,13 @@ const Routes = () => {
             path="/movie/top_rated"
             element={
               <MovieCategory
-                title="Top Rated"
+                title="Top Rated Movies"
                 fnArgs={topratedArgs}
                 pagination
                 fn={useGetMoviesQuery}
+                component={(data, isFetching) => (
+                  <MoviesDataView data={data.results} isFetching={isFetching} />
+                )}
               />
             }
           />
@@ -42,10 +50,27 @@ const Routes = () => {
             path="/movie/upcoming"
             element={
               <MovieCategory
-                title="Upcoming"
+                title="Upcoming Movies"
                 fnArgs={upcomingArgs}
                 pagination
                 fn={useGetMoviesQuery}
+                component={(data, isFetching) => (
+                  <MoviesDataView data={data.results} isFetching={isFetching} />
+                )}
+              />
+            }
+          />
+          <Route
+            exact
+            path="/person/popular"
+            element={
+              <MovieCategory
+                title="Popular Celebrities"
+                pagination
+                fn={useGetPopularPeopleQuery}
+                component={(data, isFetching) => (
+                  <PeopleDataView data={data.results} isFetching={isFetching} />
+                )}
               />
             }
           />
