@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Routes from "./routes/Routes";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchMovieGenres } from "../src/features/genres/genresSlice";
 
 /////////////////////////////////////////////////////////////////
 // --------------- THIS IS JUST FOR DEMO PURPOSES ---------------
@@ -19,11 +20,11 @@ export const TogglerProvider = (props) => {
 /////////////////////////////////////////////////////////////////
 
 const App = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchMovieGenres());
-  // }, []);
+  useEffect(() => {
+    dispatch(fetchMovieGenres());
+  }, []);
 
   return (
     <TogglerProvider>
