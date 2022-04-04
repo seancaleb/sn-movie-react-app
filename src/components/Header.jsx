@@ -1,5 +1,15 @@
 import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
-import { Box, Container, Text, Input, Flex, InputGroup, InputLeftElement, Link, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Text,
+  Input,
+  Flex,
+  InputGroup,
+  InputLeftElement,
+  Link,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { Link as RouteLink } from "react-router-dom";
 import { MenuDrawer } from ".";
 import { inputProps } from "../theme/style";

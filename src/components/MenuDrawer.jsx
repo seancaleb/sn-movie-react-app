@@ -1,5 +1,14 @@
 import { ArrowLeftIcon } from "@chakra-ui/icons";
-import { Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, Text, Flex, Link } from "@chakra-ui/react";
+import {
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerHeader,
+  DrawerBody,
+  Text,
+  Flex,
+  Link,
+} from "@chakra-ui/react";
 import { nanoid } from "@reduxjs/toolkit";
 import React, { useContext } from "react";
 // import { useSelector } from "react-redux";
@@ -36,7 +45,13 @@ const MenuDrawer = ({ onClose, isOpen }) => {
         <DrawerBody>
           <Flex {...flexProps}>
             {menuItems.map((menu) => (
-              <Link key={nanoid()} as={RouteLink} to={`${menu.path}?page=1`} _focus={{ boxShadow: "none" }} onClick={handleClick}>
+              <Link
+                key={nanoid()}
+                as={RouteLink}
+                to={`${menu.path}?page=1`}
+                _focus={{ boxShadow: "none" }}
+                onClick={handleClick}
+              >
                 <Text {...textProps}>{menu.title}</Text>
               </Link>
             ))}

@@ -11,13 +11,7 @@ const Detail = ({ title, value }) => {
     if (title === "Casts") {
       renderedValue = value.map((item, index) => {
         return (
-          <Link
-            key={item.id}
-            as={RouteLink}
-            to={`/cast/${item.id}`}
-            _focus={{ boxShadow: "none" }}
-            _hover={{ textDecor: "none" }}
-          >
+          <Link key={item.id} as={RouteLink} to={`/cast/${item.id}`} _focus={{ boxShadow: "none" }}>
             <Text {...castsProps}>
               {item.name}
               {index === value.length - 1 ? "" : ", "}
@@ -61,8 +55,13 @@ const valueTextProps = {
 };
 
 const castsProps = {
+  as: "span",
   color: "whiteAlpha.800",
   fontWeight: "normal",
-  _hover: { color: "brand.primary", cursor: "pointer" },
-  as: "span",
+  _hover: {
+    color: "brand.primary",
+    cursor: "pointer",
+    textDecor: "underline",
+    textDecorationColor: "brand.primary",
+  },
 };
