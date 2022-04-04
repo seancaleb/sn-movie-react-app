@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes as MyRoutes } from "react-router-dom";
 import { Footer, Header, MovieCategory, ScrollToTop } from "../components";
 import Cast from "../components/cast/Cast";
+import Genre from "../components/genre/Genre";
 import Movie from "../components/movie/Movie";
 import MoviesDataView from "../components/movies/MoviesDataView";
 import PeopleDataView from "../components/people/PeopleDataView";
@@ -74,6 +75,7 @@ const Routes = () => {
               />
             }
           />
+          <Route exact path="/discover/movie/:genreId" element={<Genre />} />
           <Route exact path="/cast/:castId" element={<Cast />} />
           <Route exact path="/movie/:movieId" element={<Movie />} />
           <Route exact path="/movie" element={<Navigate to="/" replace />} />
