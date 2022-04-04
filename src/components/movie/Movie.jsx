@@ -2,8 +2,9 @@ import { useParams } from "react-router-dom";
 import { Main, Section } from "../";
 import { useGetMoviesBaseFromMovieQuery } from "../../features/api/moviesSlice";
 import { MainContainer } from "../";
-import MoviesList from "../movies/MoviesList";
+import QueryList from "../QueryList";
 import MovieDetails from "./MovieDetails";
+import MoviesDataView from "../movies/MoviesDataView";
 
 const Movie = () => {
   const { movieId } = useParams();
@@ -25,19 +26,25 @@ const Movie = () => {
       </Section>
       <MainContainer>
         <Section>
-          <MoviesList
-            title="Recommended"
+          <QueryList
+            title="Recommended Movies"
             fn={useGetMoviesBaseFromMovieQuery}
             fnArgs={recommendationsArgs}
             limit={7}
+            component={(data, isFetching) => (
+              <MoviesDataView data={data.results} isFetching={isFetching} />
+            )}
           />
         </Section>
         <Section>
-          <MoviesList
-            title="Similar"
+          <QueryList
+            title="Similar Movies"
             fn={useGetMoviesBaseFromMovieQuery}
             fnArgs={similarArgs}
             limit={7}
+            component={(data, isFetching) => (
+              <MoviesDataView data={data.results} isFetching={isFetching} />
+            )}
           />
         </Section>
       </MainContainer>
