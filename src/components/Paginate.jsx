@@ -1,17 +1,17 @@
 import React from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import ReactPaginate from "react-paginate";
-import "../../pagination.css";
+import "../pagination.css";
 import { useSearchParams } from "react-router-dom";
 
-const MoviesPagination = ({ data, setPage }) => {
+const Paginate = ({ data }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleClickPagination = (isNext) => {
-    const nextPage = isNext.nextSelectedPage !== undefined ? isNext.nextSelectedPage + 1 : isNext.selected + 1;
+    const nextPage =
+      isNext.nextSelectedPage !== undefined ? isNext.nextSelectedPage + 1 : isNext.selected + 1;
     searchParams.set("page", nextPage);
     setSearchParams(searchParams);
-    setPage(nextPage);
   };
 
   return (
@@ -25,7 +25,7 @@ const MoviesPagination = ({ data, setPage }) => {
     />
   );
 };
-export default React.memo(MoviesPagination);
+export default React.memo(Paginate);
 
 const paginateProps = {
   breakLabel: "...",
