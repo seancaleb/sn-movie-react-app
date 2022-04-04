@@ -1,22 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { GridItem, Heading } from "@chakra-ui/react";
 import ErrorFallback from "../ErrorFallback";
 import RenderMovies from "./RenderMovies";
-import MoviesPagination from "./MoviesPagination";
+import { Paginate } from "../";
 import { TogglerContext } from "../../App";
 import { useSearchParams } from "react-router-dom";
 
-const MoviesList = ({ title, category, limit, pagination = false, fn, movieId, castId }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = useState(searchParams.get("page") ?? 1);
-
+const MoviesList = ({ title, pagination = false, fn, limit, fnArgs }) => {
+  const [searchParams] = useSearchParams();
   const { data, isFetching, isSuccess, isError, error } = fn({
-    category,
+    ...fnArgs,
     limit,
-    movieId,
     page: searchParams.get("page"),
-    castId,
   });
 
   /////////////////////////////////////////////////////////////////
@@ -42,7 +38,7 @@ const MoviesList = ({ title, category, limit, pagination = false, fn, movieId, c
       </GridItem>
       {pagination && data && (
         <GridItem colSpan={12}>
-          <MoviesPagination {...{ data, setPage }} />
+          <Paginate {...{ data }} />
         </GridItem>
       )}
     </>
