@@ -170,6 +170,10 @@ export const moviesApi = createApi({
     getPopularPeople: builder.query({
       query: ({ page = 0 }) => `person/popular?page=${page}&api_key=${key}`,
     }),
+    getDiscoverMovieByGenre: builder.query({
+      query: ({ page = 0, genreId }) =>
+        `discover/movie?with_genres=${genreId}&page=${page}&api_key=${key}`,
+    }),
   }),
 });
 
@@ -182,4 +186,5 @@ export const {
   useGetCastDetailsQuery,
   useGetCastMovieCreditsQuery,
   useGetPopularPeopleQuery,
+  useGetDiscoverMovieByGenreQuery,
 } = moviesApi;
