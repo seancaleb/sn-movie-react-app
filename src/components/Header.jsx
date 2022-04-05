@@ -1,18 +1,9 @@
-import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Container,
-  Text,
-  Input,
-  Flex,
-  InputGroup,
-  InputLeftElement,
-  Link,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { Box, Container, Text, Flex, Link, useDisclosure } from "@chakra-ui/react";
 import { Link as RouteLink } from "react-router-dom";
 import { MenuDrawer } from ".";
-import { inputProps } from "../theme/style";
+
+import Search from "./search/Search";
 
 const Header = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -27,14 +18,7 @@ const Header = () => {
             <Text {...textProps}>snmovie </Text>
           </Link>
         </Flex>
-
-        {/* <InputGroup {...inputGroupProps}>
-          <InputLeftElement
-            pointerEvents="none"
-            children={<SearchIcon {...searchIconProps} />}
-          />
-          <Input placeholder="Search a keyword..." {...inputProps} />
-        </InputGroup> */}
+        <Search />
       </Container>
       <MenuDrawer isOpen={isOpen} onClose={onClose} />
     </Box>
@@ -50,7 +34,7 @@ const headerProps = {
 const headerContainerProps = {
   maxW: "1560px",
   display: "flex",
-  gap: "20px",
+  gap: "30px",
   justifyContent: {
     base: "flex-start",
     md: "space-between",
@@ -74,15 +58,6 @@ const textProps = {
   fontSize: "20px",
   _hover: { color: "brand.primary" },
   cursor: "pointer",
-};
-
-const inputGroupProps = {
-  maxW: "450px",
-};
-
-const searchIconProps = {
-  color: "#fff",
-  transform: "translateY(-2px)",
 };
 
 export default Header;
