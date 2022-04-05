@@ -1,11 +1,6 @@
 const inputProps = {
-  maxW: {
-    base: "100%",
-    lg: "500px",
-  },
   py: "16px",
-  px: "8px",
-  h: "36px",
+  px: "16px",
   borderRadius: "3px",
   color: "whiteAlpha.800",
   fontWeight: "normal",

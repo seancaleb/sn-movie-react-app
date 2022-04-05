@@ -68,4 +68,9 @@ ul {
   list-style-type: none;
 }
 
-/* swiper */
+/* Search: span tag  */
+.css-xl71ch {
+  display: inline-flex;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+}
