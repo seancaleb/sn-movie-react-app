@@ -12,30 +12,13 @@ import {
   Badge,
 } from "@chakra-ui/react";
 import { nanoid } from "@reduxjs/toolkit";
-import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { Link as RouteLink } from "react-router-dom";
-import { TogglerContext } from "../App";
 import { menuItems } from "../data";
 import { selectGenres } from "../features/genres/genresSlice";
 
 const MenuDrawer = ({ onClose, isOpen }) => {
   const genres = useSelector(selectGenres);
-
-  /////////////////////////////////////////////////////////////////
-  // --------------- THIS IS JUST FOR DEMO PURPOSES ---------------
-  /////////////////////////////////////////////////////////////////
-
-  const { isActive } = useContext(TogglerContext);
-
-  const handleClick = (path) => {
-    if (isActive) {
-      setTimeout(() => onClose(), 500);
-    }
-  };
-
-  /////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
 
   return (
     <Drawer {...drawerProps} isOpen={isOpen} onClose={onClose}>
@@ -52,7 +35,6 @@ const MenuDrawer = ({ onClose, isOpen }) => {
                 as={RouteLink}
                 to={`${menu.path}?page=1`}
                 _focus={{ boxShadow: "none" }}
-                onClick={handleClick}
               >
                 <Text {...textProps}>{menu.title}</Text>
               </Link>
@@ -69,7 +51,6 @@ const MenuDrawer = ({ onClose, isOpen }) => {
                       as={RouteLink}
                       to={`discover/movie/${genre.id}?page=1`}
                       _focus={{ boxShadow: "none" }}
-                      onClick={handleClick}
                     >
                       <Badge {...badgeProps}>{genre.name}</Badge>
                     </Link>
@@ -83,7 +64,7 @@ const MenuDrawer = ({ onClose, isOpen }) => {
   );
 };
 
-export default React.memo(MenuDrawer);
+export default MenuDrawer;
 
 const drawerProps = {
   placement: "left",
