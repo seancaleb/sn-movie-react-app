@@ -1,12 +1,30 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Container, Text, Flex, Link, useDisclosure } from "@chakra-ui/react";
-import { Link as RouteLink } from "react-router-dom";
-import { MenuDrawer } from ".";
+import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Container,
+  Text,
+  Flex,
+  Link,
+  useDisclosure,
+  useBoolean,
+  useMediaQuery,
+} from "@chakra-ui/react";
+import { useEffect } from "react";
 
+import { Link as RouteLink, useLocation } from "react-router-dom";
+import { MenuDrawer } from ".";
 import Search from "./search/Search";
+import SearchMobileView from "./search/SearchMobileView";
 
 const Header = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const [isActive, setIsActive] = useBoolean(false);
+  const [isLessThan768] = useMediaQuery("(max-width: 768px)");
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsActive.off();
+  }, [location]);
 
   return (
     <Box {...headerProps}>
@@ -18,27 +36,35 @@ const Header = () => {
             <Text {...textProps}>snmovie </Text>
           </Link>
         </Flex>
-        <Search />
+
+        {isLessThan768 ? (
+          <SearchIcon {...searchIconProps} onClick={() => setIsActive.toggle()} />
+        ) : (
+          <Search />
+        )}
       </Container>
+      {isLessThan768 && <SearchMobileView {...{ isActive }} />}
       <MenuDrawer isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 };
 
+export default Header;
+
 const headerProps = {
   w: "100%",
   bg: "brand.dark.secondary",
   as: "header",
+  pos: "relative",
+  h: "auto",
+  zIndex: 99,
 };
 
 const headerContainerProps = {
   maxW: "1560px",
   display: "flex",
   gap: "30px",
-  justifyContent: {
-    base: "flex-start",
-    md: "space-between",
-  },
+  justifyContent: "space-between",
   h: "60px",
   alignItems: "center",
 };
@@ -60,4 +86,8 @@ const textProps = {
   cursor: "pointer",
 };
 
-export default Header;
+const searchIconProps = {
+  color: "white",
+  boxSize: "18px",
+  cursor: "pointer",
+};
