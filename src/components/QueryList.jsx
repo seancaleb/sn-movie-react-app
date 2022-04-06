@@ -23,7 +23,9 @@ const QueryList = ({ title, pagination = false, fn, limit, fnArgs, component }) 
       </GridItem>
       {pagination && data && (
         <GridItem colSpan={12}>
-          <Paginate {...{ data }} />
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <Paginate {...{ data }} />
+          </ErrorBoundary>
         </GridItem>
       )}
     </>
