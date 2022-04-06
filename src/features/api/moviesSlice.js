@@ -64,13 +64,11 @@ export const moviesApi = createApi({
       transformResponse: (response, meta, arg) => {
         let { ...responseObj } = response;
 
-        let { genres } = responseObj;
         let { release_date } = responseObj;
 
         release_date = new Date(release_date).getFullYear();
-        genres = genres.map((genre) => genre.name);
 
-        responseObj = { ...responseObj, genres, release_date };
+        responseObj = { ...responseObj, release_date };
         return responseObj;
       },
     }),
@@ -175,6 +173,17 @@ export const moviesApi = createApi({
     getDiscoverMovieByGenre: builder.query({
       query: ({ page = 0, genreId }) =>
         `discover/movie?with_genres=${genreId}&page=${page}&api_key=${key}`,
+      transformResponse: (response, meta, arg) => {
+        let responseObj = { ...response };
+
+        let { results } = responseObj;
+
+        results = results.map((movie) => {
+          return { ...movie, release_date: new Date(movie.release_date).getFullYear() };
+        });
+
+        return { ...responseObj, results };
+      },
     }),
     getSearchByCategory: builder.query({
       query: ({ query, category, page = 1 }) =>
