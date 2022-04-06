@@ -6,10 +6,21 @@ import Movie from "../components/movie/Movie";
 import MoviesDataView from "../components/movies/MoviesDataView";
 import PeopleDataView from "../components/people/PeopleDataView";
 import { popularArgs, topratedArgs, upcomingArgs } from "../data";
-import { useGetMoviesQuery, useGetPopularPeopleQuery } from "../features/api/moviesSlice";
+import {
+  useGetMoviesQuery,
+  useGetPopularPeopleQuery,
+  useGetSearchByCategoryQuery,
+} from "../features/api/moviesSlice";
 import Home from "../pages/Home";
 
+import { useSelector } from "react-redux";
+import { selectQuery } from "../features/query/querySlice";
+
 const Routes = () => {
+  const { value } = useSelector(selectQuery);
+
+  console.log(value);
+
   return (
     <BrowserRouter>
       <ScrollToTop>
@@ -79,6 +90,36 @@ const Routes = () => {
           <Route exact path="/cast/:castId" element={<Cast />} />
           <Route exact path="/movie/:movieId" element={<Movie />} />
           <Route exact path="/movie" element={<Navigate to="/" replace />} />
+          <Route
+            exact
+            path={`search/movie/${value}`}
+            element={
+              <BaseTemplate
+                title={`Search results for '${value}'`}
+                pagination
+                fnArgs={{ category: "movie", query: value }}
+                fn={useGetSearchByCategoryQuery}
+                component={(data, isFetching) => (
+                  <MoviesDataView data={data.results} isFetching={isFetching} />
+                )}
+              />
+            }
+          />
+          <Route
+            exact
+            path={`search/person/${value}`}
+            element={
+              <BaseTemplate
+                title={`Search results for '${value}'`}
+                pagination
+                fnArgs={{ category: "person", query: value }}
+                fn={useGetSearchByCategoryQuery}
+                component={(data, isFetching) => (
+                  <PeopleDataView data={data.results} isFetching={isFetching} />
+                )}
+              />
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </MyRoutes>
         <Footer />
