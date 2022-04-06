@@ -8,13 +8,11 @@ import RenderResults from "./RenderResults";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "../";
 import { AnimatePresence, motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
 
-const Search = ({ isMobileView = false }) => {
+const Search = () => {
   const [category, setCategory] = useState({ title: "Movies", value: "movie" });
   const [query, setQuery] = useState(null);
   const [isActive, setIsActive] = useBoolean(true);
-  const location = useLocation();
   const inputRef = useRef(null);
 
   const { data, isSuccess, isFetching, isError, error } = useGetSearchByCategoryQuery(
@@ -26,12 +24,12 @@ const Search = ({ isMobileView = false }) => {
   );
 
   useEffect(() => {
-    if (isMobileView) inputRef.current.focus();
-  }, [location]);
-
-  useEffect(() => {
     inputRef.current.focus();
   }, [category]);
+
+  useEffect(() => {
+    return () => setCategory(null);
+  }, []);
 
   useEffect(() => {
     !isActive && setIsActive.on();
