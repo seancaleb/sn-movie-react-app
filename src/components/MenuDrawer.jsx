@@ -35,6 +35,7 @@ const MenuDrawer = ({ onClose, isOpen }) => {
                 as={RouteLink}
                 to={`${menu.path}?page=1`}
                 _focus={{ boxShadow: "none" }}
+                onClick={() => setTimeout(() => onClose(), 600)}
               >
                 <Text {...textProps}>{menu.title}</Text>
               </Link>
@@ -51,6 +52,7 @@ const MenuDrawer = ({ onClose, isOpen }) => {
                       as={RouteLink}
                       to={`discover/movie/${genre.id}?page=1`}
                       _focus={{ boxShadow: "none" }}
+                      onClick={() => setTimeout(() => onClose(), 600)}
                     >
                       <Badge {...badgeProps}>{genre.name}</Badge>
                     </Link>

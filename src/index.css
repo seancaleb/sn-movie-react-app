@@ -74,3 +74,8 @@ ul {
   display: -ms-inline-flexbox;
   display: -webkit-inline-flex;
 }
+
+/* Links */
+a:focus {
+  box-shadow: unset !important;
+}

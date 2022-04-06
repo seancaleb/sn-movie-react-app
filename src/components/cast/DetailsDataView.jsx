@@ -8,6 +8,8 @@ const DetailsDataView = ({ data }) => {
   const [loadedSrc, setLoadedSrc] = useState(null);
   const src = data.img ? `${baseUrl}/${data.img}` : imgPlaceholder;
 
+  const age = data.age ? `${data.age} years old` : null;
+
   useEffect(() => {
     const initialLoadImage = async () => setLoadedSrc(await loadImage(src).then(() => src));
     initialLoadImage();
@@ -32,7 +34,7 @@ const DetailsDataView = ({ data }) => {
                   </Link>
                 </Flex>
 
-                <Detail title="Age" value={`${data.age} years old`} />
+                <Detail title="Age" value={age} />
                 <Detail title="Birthday" value={data.birthday} />
                 <Detail title="Birth Place" value={data.birthplace} />
               </Flex>

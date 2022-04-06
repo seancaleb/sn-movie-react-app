@@ -1,7 +1,8 @@
 const inputProps = {
   py: "16px",
   px: "16px",
-  borderRadius: "3px",
+  borderRightRadius: "3px",
+  borderLeftRadius: "0px",
   color: "whiteAlpha.800",
   fontWeight: "normal",
   bg: "brand.dark.primary",

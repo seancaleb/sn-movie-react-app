@@ -1,4 +1,3 @@
-import React from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import ReactPaginate from "react-paginate";
 import "../pagination.css";
@@ -25,7 +24,7 @@ const Paginate = ({ data }) => {
     />
   );
 };
-export default React.memo(Paginate);
+export default Paginate;
 
 const paginateProps = {
   breakLabel: "...",
