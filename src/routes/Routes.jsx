@@ -19,8 +19,6 @@ import { selectQuery } from "../features/query/querySlice";
 const Routes = () => {
   const { value } = useSelector(selectQuery);
 
-  console.log(value);
-
   return (
     <BrowserRouter>
       <ScrollToTop>
