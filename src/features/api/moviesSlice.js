@@ -120,19 +120,21 @@ export const moviesApi = createApi({
       query: ({ castId }) => `person/${castId}?api_key=${key}`,
       transformResponse: (response, meta, arg) => {
         let responseObj = { ...response };
+        let birthYear, deathYear, year, age;
 
         const { deathday, birthday } = responseObj;
 
-        const year = new Date().getFullYear();
-        const deathYear = new Date(deathday).getFullYear();
-        const birthYear = new Date(birthday).getFullYear();
-
-        const age = deathday ? deathYear - birthYear : year - birthYear;
+        if (birthday) {
+          year = new Date().getFullYear();
+          birthYear = new Date(birthday).getFullYear();
+          deathYear = new Date(deathday).getFullYear();
+          age = deathday ? deathYear - birthYear : year - birthYear;
+        }
 
         return {
           name: responseObj.name,
           bio: responseObj.biography,
-          birthday: format(new Date(birthday), "MMMM d, y"),
+          birthday: birthday && format(new Date(birthday), "MMMM d, y"),
           birthplace: responseObj.place_of_birth,
           img: responseObj.profile_path,
           imdb_id: responseObj.imdb_id,
@@ -177,6 +179,19 @@ export const moviesApi = createApi({
     getSearchByCategory: builder.query({
       query: ({ query, category, page = 1 }) =>
         `search/${category}?query=${query}&page=${page}&api_key=${key}`,
+      transformResponse: (response, meta, arg) => {
+        let responseObj = { ...response };
+
+        if (arg.category === "movie") {
+          let { results } = responseObj;
+
+          results = results.map((movie) => {
+            return { ...movie, release_date: new Date(movie.release_date).getFullYear() };
+          });
+
+          return { ...responseObj, results };
+        } else return responseObj;
+      },
     }),
   }),
 });
