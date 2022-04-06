@@ -19,6 +19,22 @@ const Detail = ({ title, value }) => {
           </Link>
         );
       });
+    } else if (title === "Genres") {
+      renderedValue = value.map((item, index) => {
+        return (
+          <Link
+            key={item.id}
+            as={RouteLink}
+            to={`/discover/movie/${item.id}?page=1`}
+            _focus={{ boxShadow: "none" }}
+          >
+            <Text {...castsProps}>
+              {item.name}
+              {index === value.length - 1 ? "" : ", "}
+            </Text>
+          </Link>
+        );
+      });
     } else {
       renderedValue = value.map((item, index) => {
         return (
