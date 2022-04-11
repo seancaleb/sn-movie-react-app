@@ -33,7 +33,7 @@ const MenuDrawer = ({ onClose, isOpen }) => {
               <Link
                 key={nanoid()}
                 as={RouteLink}
-                to={`${menu.path}?page=1`}
+                to={menu.title === "Home" ? menu.path : `${menu.path}?page=1`}
                 _focus={{ boxShadow: "none" }}
                 onClick={() => setTimeout(() => onClose(), 600)}
               >
