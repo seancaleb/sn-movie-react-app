@@ -13,6 +13,7 @@ import { useEffect } from "react";
 
 import { Link as RouteLink, useLocation } from "react-router-dom";
 import { MenuDrawer } from ".";
+import GithubIcon from "./GithubIcon";
 import Search from "./search/Search";
 import SearchMobileView from "./search/SearchMobileView";
 
@@ -37,11 +38,14 @@ const Header = () => {
           </Link>
         </Flex>
 
-        {isLessThan768 ? (
-          <SearchIcon {...searchIconProps} onClick={() => setIsActive.toggle()} />
-        ) : (
-          <Search />
-        )}
+        {!isLessThan768 && <Search />}
+
+        <Flex {...flexProps}>
+          {isLessThan768 && <SearchIcon {...iconProps} onClick={() => setIsActive.toggle()} />}
+          <Link href="https://github.com/seancaleb/sn-movie-react-app" isExternal>
+            <GithubIcon {...iconProps} boxSize="22px" />
+          </Link>
+        </Flex>
       </Container>
       {isLessThan768 && <SearchMobileView {...{ isActive }} />}
       <MenuDrawer isOpen={isOpen} onClose={onClose} />
@@ -86,7 +90,7 @@ const textProps = {
   cursor: "pointer",
 };
 
-const searchIconProps = {
+const iconProps = {
   color: "white",
   boxSize: "18px",
   cursor: "pointer",
