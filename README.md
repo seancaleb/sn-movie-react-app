@@ -1,13 +1,15 @@
 # Description
 A demo movie application that uses the ([The Movie Database](https://developers.themoviedb.org/3/getting-started/introduction)) API. 
-This project just demonstrates fetching data from a specific api endpoint and display them in a convenient way using Redux Toolkit Query.
+This project just demonstrates fetching data from a specific api endpoint and display them in a very convenient manner providing good user experience to users.
 
 ## Tools Used
 
+- [React](https://reactjs.org/) (Frontend JS UI Library)
 - [React Redux](https://react-redux.js.org/) (State Management)
 - [Redux Toolkit](https://redux-toolkit.js.org/) (Cached State Management)
 - [Chakra UI](https://chakra-ui.com/) (UI Component Library)
 - [React Router v6](https://reactrouter.com/docs/en/v6) (Page Routing)
+- [Vite](https://vitejs.dev/guide) (Build Tool)
 
 ## Images
 
