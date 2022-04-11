@@ -13,7 +13,7 @@ const Home = () => {
         </Section>
         <Section>
           <QueryList
-            title="Popular"
+            title="Popular Movies"
             fn={useGetMoviesQuery}
             fnArgs={popularArgs}
             limit={14}
@@ -24,7 +24,7 @@ const Home = () => {
         </Section>
         <Section>
           <QueryList
-            title="Top Rated"
+            title="Top Rated Movies"
             fn={useGetMoviesQuery}
             fnArgs={topratedArgs}
             limit={14}
@@ -35,7 +35,7 @@ const Home = () => {
         </Section>
         <Section>
           <QueryList
-            title="Upcoming"
+            title="Upcoming Movies"
             fn={useGetMoviesQuery}
             fnArgs={upcomingArgs}
             limit={14}
