@@ -25,6 +25,8 @@ const MoviesDataView = ({ data, isFetching = false }) => {
     };
 
     !isFetching && initialLoadImages();
+
+    return () => setMovies(data);
   }, [data, isFetching]);
 
   return (
