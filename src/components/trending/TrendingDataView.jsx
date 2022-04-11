@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GridItem, Link, Flex, Text, Image, useMediaQuery } from "@chakra-ui/react";
+import { GridItem, Link, Flex, Text } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import { Link as RouteLink } from "react-router-dom";
 import { MovieCard } from "../";
@@ -10,7 +10,6 @@ import { loadImage } from "../../utils";
 import Loader from "../Loader";
 
 const TrendingDataView = ({ data }) => {
-  const [isLessThanEqual767] = useMediaQuery("(max-width: 767px)");
   const [movies, setMovies] = useState([]);
   let renderedMovies;
 
@@ -36,7 +35,6 @@ const TrendingDataView = ({ data }) => {
             <Link as={RouteLink} to={`movie/${movie.id}`}>
               <Flex {...bgCoverProps} sx={{ backgroundImage: `${bgGradient} url(${loadedImage})` }}>
                 <Flex {...contentContainerProps}>
-                  {!isLessThanEqual767 && <Image src={`${baseImgUrlDefault}/${movie.poster_path}`} {...imageProps} />}
                   <Flex {...dataWrapperProps}>
                     <Text {...titleProps}>{movie.original_title}</Text>
                     <Flex {...voteWrapperProps}>
@@ -68,7 +66,12 @@ const TrendingDataView = ({ data }) => {
       <GridItem {...rightColProps}>
         {data.slice(0, 3).map((movie) => {
           return (
-            <Link as={RouteLink} to={`movie/${movie.id}`} key={movie.id} _focus={{ boxShadow: "none" }}>
+            <Link
+              as={RouteLink}
+              to={`movie/${movie.id}`}
+              key={movie.id}
+              _focus={{ boxShadow: "none" }}
+            >
               <MovieCard movie={movie} />
             </Link>
           );
@@ -83,7 +86,6 @@ export default TrendingDataView;
 const bgGradient =
   "linear-gradient(rgba(24, 24, 24, 0) 40%, rgba(24, 24, 24, 0.25) 60%, rgba(24, 24, 24, 0.75) 75%, rgba(24, 24, 24, 1) 85%, rgba(24, 24, 24, 1) ), ";
 const baseImgUrlOriginal = ` ${import.meta.env.VITE_TMDB_IMAGE_BASE_URL_ORIGINAL}`;
-const baseImgUrlDefault = ` ${import.meta.env.VITE_TMDB_IMAGE_BASE_URL}`;
 
 const bgCoverProps = {
   w: "100%",
@@ -118,10 +120,6 @@ const starIconProps = {
 
 const voteCountProps = {
   fontSize: "18px",
-};
-
-const imageProps = {
-  maxW: "120px",
 };
 
 const dataWrapperProps = {
