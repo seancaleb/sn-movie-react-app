@@ -20,3 +20,15 @@ This project just demonstrates fetching data from a specific api endpoint and di
 2. [Single Movie](https://sn-movie-react-app.vercel.app/movie/634649)
 
 ![Single movie page snapshot](https://raw.githubusercontent.com/seancaleb/sn-movie-react-app/main/images/movie-1.png)
+
+3. [Celebrity](https://sn-movie-react-app.vercel.app/cast/1136406)
+
+![Celebrity snapshot](https://raw.githubusercontent.com/seancaleb/sn-movie-react-app/main/images/celeb-1.png)
+
+4. [Search](https://sn-movie-react-app.vercel.app/search/movie/spider?page=1)
+
+![Search movie snapshot](https://raw.githubusercontent.com/seancaleb/sn-movie-react-app/main/images/search-1.png)
+
+5. [Celebrities](https://sn-movie-react-app.vercel.app/person/popular?page=1)
+
+![Celebrities snapshot](https://raw.githubusercontent.com/seancaleb/sn-movie-react-app/main/images/celebs-1.png)
