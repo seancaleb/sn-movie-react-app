@@ -41,7 +41,9 @@ const TrendingDataView = ({ data }) => {
                       <Flex alignItems="center">
                         <StarIcon {...starIconProps} />
                       </Flex>
-                      <Text {...voteCountProps}>{movie.vote_average}</Text>
+                      <Text {...voteCountProps}>
+                        {movie.vote_average === 0 ? "Unrated" : movie.vote_average}
+                      </Text>
                     </Flex>
                     <Text {...textProps}>{movie.overview}</Text>
                   </Flex>
