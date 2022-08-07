@@ -79,3 +79,7 @@ ul {
 a:focus {
   box-shadow: unset !important;
 }
+
+a:hover {
+  text-decoration: none !important;
+}

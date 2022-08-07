@@ -16,3 +16,4 @@ export { default as Paginate } from "./Paginate";
 export { default as QueryList } from "./QueryList";
 export { default as RenderQueryList } from "./RenderQueryList";
 export { default as QueryListFallback } from "./QueryListFallback";
+export { default as Preloader } from "./Preloader";
