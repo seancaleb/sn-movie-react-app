@@ -5,10 +5,10 @@ This project just demonstrates fetching data from a specific api endpoint and di
 ## Tools Used
 
 - [React](https://reactjs.org/) (Frontend JS UI Library)
-- [React Redux](https://react-redux.js.org/) (State Management)
-- [Redux Toolkit](https://redux-toolkit.js.org/) (Cached State Management)
+- [React Redux](https://react-redux.js.org/) (React bindings for Redux)
+- [Redux Toolkit/RTK Query](https://redux-toolkit.js.org/) (Cached State Management)
 - [Chakra UI](https://chakra-ui.com/) (UI Component Library)
-- [React Router v6](https://reactrouter.com/docs/en/v6) (Page Routing)
+- [React Router v6](https://reactrouter.com/docs/en/v6) (Client/Server side Routing)
 - [Vite](https://vitejs.dev/guide) (Build Tool)
 
 ## Images
