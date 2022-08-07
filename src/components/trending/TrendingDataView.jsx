@@ -32,7 +32,7 @@ const TrendingDataView = ({ data }) => {
 
         return (
           <SwiperSlide key={movie.id}>
-            <Link as={RouteLink} to={`movie/${movie.id}`}>
+            <Link _hover={{ textDecor: "none" }} as={RouteLink} to={`movie/${movie.id}`}>
               <Flex {...bgCoverProps} sx={{ backgroundImage: `${bgGradient} url(${loadedImage})` }}>
                 <Flex {...contentContainerProps}>
                   <Flex {...dataWrapperProps}>
@@ -42,7 +42,9 @@ const TrendingDataView = ({ data }) => {
                         <StarIcon {...starIconProps} />
                       </Flex>
                       <Text {...voteCountProps}>
-                        {movie.vote_average === 0 ? "Unrated" : movie.vote_average}
+                        {movie.vote_average === 0
+                          ? "Unrated"
+                          : Number(movie.vote_average).toFixed(1)}
                       </Text>
                     </Flex>
                     <Text {...textProps}>{movie.overview}</Text>

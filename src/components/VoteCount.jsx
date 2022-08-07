@@ -7,7 +7,7 @@ const VoteCount = ({ vote_average }) => {
       <Flex alignItems="center">
         <StarIcon {...starIconProps} />
       </Flex>
-      <Text {...textProps}>{vote_average ? vote_average : "Unrated"}</Text>
+      <Text {...textProps}>{vote_average ? Number(vote_average).toFixed(1) : "Unrated"}</Text>
     </Flex>
   );
 };
