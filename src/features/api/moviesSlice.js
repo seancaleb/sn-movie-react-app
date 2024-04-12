@@ -36,7 +36,8 @@ export const moviesApi = createApi({
       },
     }),
     getMovies: builder.query({
-      query: ({ category, limit, page = 0 }) => `movie/${category}?page=${page}&api_key=${key}`,
+      query: ({ category }) =>
+        `movie/${category}?api_key=${key}&language=en-US`,
       transformResponse: (response, meta, arg) => {
         let { ...responseObj } = response;
 
@@ -79,7 +80,9 @@ export const moviesApi = createApi({
 
         let { cast } = responseObj;
 
-        cast = cast.filter((person) => person.known_for_department === "Acting");
+        cast = cast.filter(
+          (person) => person.known_for_department === "Acting"
+        );
 
         cast = cast.map((person) => ({
           id: person.id,
@@ -91,7 +94,8 @@ export const moviesApi = createApi({
       },
     }),
     getMoviesBaseFromMovie: builder.query({
-      query: ({ movieId, category, limit }) => `movie/${movieId}/${category}?api_key=${key}`,
+      query: ({ movieId, category, limit }) =>
+        `movie/${movieId}/${category}?api_key=${key}`,
       transformResponse: (response, meta, arg) => {
         let { ...responseObj } = response;
 
@@ -160,7 +164,9 @@ export const moviesApi = createApi({
           .sort((a, b) => {
             // return b.release_date - a.release_date;
             // RETURN ONLY THOSE WITH POSTERS
-            return a.poster_path && b.poster_path ? b.release_date - a.release_date : null;
+            return a.poster_path && b.poster_path
+              ? b.release_date - a.release_date
+              : null;
           });
 
         if (cast.length >= 10) return { results: cast.slice(0, 10) };
@@ -179,7 +185,10 @@ export const moviesApi = createApi({
         let { results } = responseObj;
 
         results = results.map((movie) => {
-          return { ...movie, release_date: new Date(movie.release_date).getFullYear() };
+          return {
+            ...movie,
+            release_date: new Date(movie.release_date).getFullYear(),
+          };
         });
 
         return { ...responseObj, results };
@@ -195,7 +204,10 @@ export const moviesApi = createApi({
           let { results } = responseObj;
 
           results = results.map((movie) => {
-            return { ...movie, release_date: new Date(movie.release_date).getFullYear() };
+            return {
+              ...movie,
+              release_date: new Date(movie.release_date).getFullYear(),
+            };
           });
 
           return { ...responseObj, results };
@@ -206,8 +218,8 @@ export const moviesApi = createApi({
 });
 
 export const {
-  useGetTrendingMoviesQuery,
   useGetMoviesQuery,
+  useGetTrendingMoviesQuery,
   useGetMovieDetailsQuery,
   useGetMovieCastsQuery,
   useGetMoviesBaseFromMovieQuery,
